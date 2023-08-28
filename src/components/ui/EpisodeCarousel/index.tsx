@@ -1,40 +1,52 @@
 'use client'
 
-import { useState, type MouseEvent } from 'react'
+import { useRouter } from 'next/navigation'
+import { useState, useEffect, type MouseEvent } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
 import { LongArrowLeftIcon, LongArrowRightIcon } from '@/components/icon'
 
+import type { EpisodeCarouselType } from './EpisodeCarousel.type'
+
 import Slide from './Slide'
 
-const EpisodesCarousel = (): JSX.Element => {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [loaded, setLoaded] = useState(false)
+const breakpoints = {
+  '(min-width: 768px)': {
+    slides: { perView: 2, spacing: 16 }
+  },
+  '(min-width: 1024px)': {
+    slides: { perView: 3, spacing: 24 }
+  },
+  '(min-width: 1280px)': {
+    slides: { perView: 4, spacing: 24 }
+  },
+  '(min-width: 1536px)': {
+    slides: { perView: 6, spacing: 24 }
+  }
+}
+
+const EpisodesCarousel = ({ episodes }: EpisodeCarouselType): JSX.Element => {
+  const maxSlide = episodes.length - 1
+  const router = useRouter()
+  const [currentSlide, setCurrentSlide] = useState<number>(0)
+  const [loaded, setLoaded] = useState<boolean>(false)
+
+  useEffect(() => {
+    router.push(`/?episode=${currentSlide + 1}`, { scroll: false })
+  }, [currentSlide])
+
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     loop: {
-      min: -5,
-      max: 5
+      min: -maxSlide,
+      max: maxSlide
     },
     slides: {
       perView: 1,
       spacing: 0
     },
-    breakpoints: {
-      '(min-width: 768px)': {
-        slides: { perView: 2, spacing: 16 }
-      },
-      '(min-width: 1024px)': {
-        slides: { perView: 3, spacing: 24 }
-      },
-      '(min-width: 1280px)': {
-        slides: { perView: 4, spacing: 24 }
-      },
-      '(min-width: 1536px)': {
-        slides: { perView: 6, spacing: 24 }
-      }
-    },
+    breakpoints,
     slideChanged (slider) {
       setCurrentSlide(slider.track.details.rel)
     },
@@ -56,29 +68,34 @@ const EpisodesCarousel = (): JSX.Element => {
   return (
     <>
       <div ref={sliderRef} className="keen-slider">
-        <div className="keen-slider__slide"><Slide number={1} /></div>
-        <div className="keen-slider__slide"><Slide number={2} /></div>
-        <div className="keen-slider__slide"><Slide number={3} /></div>
-        <div className="keen-slider__slide"><Slide number={4} /></div>
-        <div className="keen-slider__slide"><Slide number={5} /></div>
-        <div className="keen-slider__slide"><Slide number={6} /></div>
+        {episodes.map((episode, index) => (
+          <div key={index} className="keen-slider__slide">
+            <Slide
+                title={episode.Title}
+                episode={episode.Episode}
+                rate={episode.imdbRating}
+                date={episode.Released}
+                currentSlide={currentSlide}
+            />
+          </div>
+        ))}
       </div>
 
       {loaded && (instanceRef.current != null) && (
       <div className="flex justify-end gap-4 mt-[22px] sm:mr-[22px] mr-0">
         <button
             type="button"
-            className={currentSlide === 0 ? 'opacity-20' : 'opacity-100'}
             onClick={onPrevious}
+            className={currentSlide === 0 ? 'opacity-20' : 'opacity-100'}
             disabled={currentSlide === 0}>
           <LongArrowLeftIcon />
         </button>
 
         <button
             type="button"
-            className={currentSlide === 5 ? 'opacity-20' : 'opacity-100'}
             onClick={onNext}
-            disabled={currentSlide === 5}>
+            className={currentSlide === maxSlide ? 'opacity-20' : 'opacity-100'}
+            disabled={currentSlide === maxSlide}>
           <LongArrowRightIcon />
         </button>
       </div>

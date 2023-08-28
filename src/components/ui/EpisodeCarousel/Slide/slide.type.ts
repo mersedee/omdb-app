@@ -1,3 +1,7 @@
 export interface SlideType {
-  number: number
+  title: string
+  rate: string
+  date: string
+  episode: string
+  currentSlide: number
 }
