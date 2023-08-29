@@ -28,9 +28,9 @@ const EpisodeCard = (): JSX.Element => {
             <Image
                 fill
                 loading="lazy"
-                src={episode?.Poster}
+                src={episode.Poster}
                 className="object-cover object-top"
-                alt={episode?.Title}
+                alt={episode.Title}
             />
             )}
       </div>
@@ -41,13 +41,14 @@ const EpisodeCard = (): JSX.Element => {
           : (
             <div className="flex justify-between items-center">
               <div className="text-lg">
-                Episode {episode?.Episode} — {formatDate(episode?.Released)}
+                Episode {episode.Episode} —
+                {(episode.Released !== undefined && episode.Released !== '') && formatDate(episode.Released)}
               </div>
 
               <div className="flex items-center gap-[17px] [&>svg]:-mt-2">
                 <StarIcon />
                 <span className="text-lg">
-                  <span className="font-bold">{episode?.imdbRating}</span>
+                  <span className="font-bold">{episode.imdbRating}</span>
                   <span>/10</span>
                 </span>
               </div>
@@ -63,10 +64,10 @@ const EpisodeCard = (): JSX.Element => {
           : (
             <>
               <h2 className="text-[27px] font-bold">
-                {episode?.Title}
+                {episode.Title}
               </h2>
               <p className="text-[19px] mt-[6px]">
-                {episode?.Plot}
+                {episode.Plot}
               </p>
             </>
             )}
