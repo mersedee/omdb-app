@@ -14,9 +14,10 @@ To get started, please follow these steps:
 - TypeScript
 - Tailwindcss
 - Keen Slider
+- React loading skeleton
 
 ## Conclusion
 The project meets all of the requirements specified in the assessment. More features could be added:
-- If I had more time, I could have developed the episodes section myself instead of using Keen Slider
+- I could have developed the episodes section myself instead of using Keen Slider If I had more time
 - I could have written a Tailwind theme, but unfortunately, the design didn't follow a specific pattern
 - I could have written some unit tests for the UI if I had more time 
