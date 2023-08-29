@@ -68,7 +68,7 @@ const EpisodesCarousel = ({ episodes }: EpisodeCarouselType): JSX.Element => {
   return (
     <>
       <div ref={sliderRef} className={`keen-slider ${loaded ? '' : 'gap-2'}`}>
-        {episodes.map((episode) => (
+        {episodes?.map((episode) => (
           <div key={episode.imdbID} className="keen-slider__slide">
             <Slide
                 loaded={loaded}
