@@ -27,7 +27,7 @@ const breakpoints = {
 }
 
 const EpisodesCarousel = ({ episodes }: EpisodeCarouselType): JSX.Element => {
-  const maxSlide = episodes.length - 1
+  const maxSlide = episodes?.length - 1
   const router = useRouter()
   const [currentSlide, setCurrentSlide] = useState<number>(0)
   const [loaded, setLoaded] = useState<boolean>(false)
