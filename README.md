@@ -6,7 +6,7 @@ To get started, please follow these steps:
 
 1. Clone the repository to your local machine
 2. Run `npm install` to install the required dependencies
-3. Create an environment file (.env.local and add api key as `NEXT_PUBLIC_API_KEY`
+3. Create an environment file (.env.local) and add api key as `NEXT_PUBLIC_API_KEY`
 4. Run `npm run dev` to start the development server
 
 ## Technologies Used
