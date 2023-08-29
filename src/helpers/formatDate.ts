@@ -1,5 +1,4 @@
 export const formatDate = (inputDate: string): string => {
-  console.warn(inputDate)
   const months: Record<string, string> = {
     Jan: '01',
     Feb: '02',
