@@ -4,4 +4,5 @@ export interface SlideType {
   date: string
   episode: string
   currentSlide: number
+  loaded: boolean
 }
