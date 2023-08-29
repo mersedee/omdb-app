@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { StarIcon } from '@/components/icon'
 import Loading from '@/components/ui/Loading'
 import { getEpisode } from '@/services/api'
+import { formatDate } from '@/helpers/formatDate'
 import type { EpisodeDetailType } from '@/types'
 
 const EpisodeCard = (): JSX.Element => {
@@ -35,7 +36,7 @@ const EpisodeCard = (): JSX.Element => {
             </div>
 
             <div className="flex justify-between items-center p-[45px_45px_40px_38px]">
-              <div className="text-lg">Episode {episode?.Episode} — {episode?.Released}</div>
+              <div className="text-lg">Episode {episode?.Episode} — {formatDate(episode?.Released)}</div>
 
               <div className="flex items-center gap-[17px] [&>svg]:-mt-2">
                 <StarIcon />
